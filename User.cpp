@@ -22,7 +22,7 @@ void User::createShoppingList(std::string shoppingListName) {
 }
 
 void User::addItemToShoppingList(std::string shoppingListName, Item *item) {
-    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); ++it) {
+    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
         if ((*it)->getName() == shoppingListName) {
             (*it)->addItem(item);
         }
@@ -30,9 +30,33 @@ void User::addItemToShoppingList(std::string shoppingListName, Item *item) {
 }
 
 void User::removeItemFromShoppingList(std::string shoppingListName, Item *item) {
-    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); ++it) {
+    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
         if ((*it)->getName() == shoppingListName) {
             (*it)->removeItem(item);
+        }
+    }
+}
+
+void User::decreaseItemQuantity(std::string shoppingListName, Item *item) {
+    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
+        if ((*it)->getName() == shoppingListName) {
+            (*it)->decreaseItemQuantity(item);
+        }
+    }
+}
+
+void User::increaseItemQuantity(std::string shoppingListName, Item *item) {
+    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
+        if ((*it)->getName() == shoppingListName) {
+            (*it)->increaseItemQuantity(item);
+        }
+    }
+}
+
+void User::showItemsList(std::string shoppingListName) {
+    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
+        if ((*it)->getName() == shoppingListName) {
+            (*it)->showItemsList();
         }
     }
 }

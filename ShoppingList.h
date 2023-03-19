@@ -18,11 +18,17 @@ private:
 public:
     explicit ShoppingList(std::string name);
 
+    ~ShoppingList() = default;
+
     void addItem(Item *item);
 
     void removeItem(Item *item);
 
-    //TODO: metodo che mostra la lista degli item
+    void showItemsList();
+
+    void decreaseItemQuantity(Item *item);
+
+    void increaseItemQuantity(Item *item);
 
     const std::string &getName() const {
         return name;

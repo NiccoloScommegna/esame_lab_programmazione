@@ -19,6 +19,8 @@ public:
 
     Item(std::string name, std::string category);
 
+    ~Item() = default;
+
     int getQuantity() const {
         return quantity;
     }
@@ -26,6 +28,15 @@ public:
     void setQuantity(int newQuantity) {
         Item::quantity = newQuantity;
     }
+
+    const std::string &getName() const {
+        return name;
+    }
+
+    void setName(const std::string &newName) {
+        Item::name = newName;
+    }
+
 };
 
 

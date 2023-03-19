@@ -18,6 +18,8 @@ private:
 public:
     explicit User(std::string name);
 
+    ~User() = default;
+
     void addShoppingList(ShoppingList *shoppingList);
 
     void removeShoppingList(ShoppingList *shoppingList);
@@ -28,9 +30,11 @@ public:
 
     void removeItemFromShoppingList(std::string shoppingListName, Item *item);
 
-    //TODO: metodo che diminuisce la quantità di un item in una shopping list
-    //TODO: metodo che aumenta la quantità di un item in una shopping list
-    //TODO: metodo che restituisce la lista degli item di una shopping list
+    void decreaseItemQuantity(std::string shoppingListName, Item *item);
+
+    void increaseItemQuantity(std::string shoppingListName, Item *item);
+
+    void showItemsList(std::string shoppingListName);
 
 };
 
