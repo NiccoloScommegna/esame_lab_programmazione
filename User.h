@@ -34,7 +34,7 @@ public:
 
     void increaseItemQuantity(std::string shoppingListName, Item *item);
 
-    void showItemsList(std::string shoppingListName);
+    bool showItemsList(std::string shoppingListName);
 
 };
 

@@ -2,6 +2,7 @@
 // Created by Niccoló Scommegna on 15/03/23.
 //
 
+#include <iostream>
 #include "User.h"
 
 User::User(std::string name) {
@@ -53,10 +54,14 @@ void User::increaseItemQuantity(std::string shoppingListName, Item *item) {
     }
 }
 
-void User::showItemsList(std::string shoppingListName) {
+bool User::showItemsList(std::string shoppingListName) {
     for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
         if ((*it)->getName() == shoppingListName) {
+            std::cout << "Items from the list " << (*it)->getName() << std::endl;
             (*it)->showItemsList();
+            return true;
         }
     }
+    std::cout << "Error: shopping list not found" << std::endl;
+    return false;
 }
