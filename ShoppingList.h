@@ -39,11 +39,11 @@ public:
     void setName(const std::string &newName) {
         ShoppingList::name = newName;
     }
-/*
-    bool operator==(const ShoppingList &sl) const {
-        return name == sl.name;
+
+    bool operator==(const ShoppingList &right) const {
+        return name == right.name;
     }
-*/
+
 };
 
 

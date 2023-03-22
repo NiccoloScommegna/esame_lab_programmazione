@@ -13,29 +13,30 @@
 class User {
 private:
     std::string name;
-    std::list<ShoppingList *> shoppingLists;
+    std::list<ShoppingList> shoppingLists;
 
 public:
     explicit User(std::string name);
 
     ~User() = default;
 
-    void addShoppingList(ShoppingList *shoppingList);
+    void addShoppingList(const ShoppingList &shoppingList);
 
-    void removeShoppingList(ShoppingList *shoppingList);
-    //void removeShoppingList(std::string shoppingListName);
+    void removeShoppingList(const ShoppingList &shoppingList);
 
-    void createShoppingList(std::string shoppingListName);
+    void removeShoppingList(const std::string &shoppingListName);
 
-    void addItemToShoppingList(std::string shoppingListName, Item *item);
+    ShoppingList createShoppingList(const std::string &shoppingListName);
 
-    void removeItemFromShoppingList(std::string shoppingListName, Item *item);
+    void showItemsList(const std::string &shoppingListName) const;
 
-    void decreaseItemQuantity(std::string shoppingListName, Item *item);
+    void addItemToShoppingList(const std::string &shoppingListName, const Item &item);
 
-    void increaseItemQuantity(std::string shoppingListName, Item *item);
+    void removeItemFromShoppingList(const std::string &shoppingListName, const Item &item);
 
-    bool showItemsList(std::string shoppingListName);
+    void decreaseItemQuantity(const std::string &shoppingListName, Item &item);
+
+    void increaseItemQuantity(const std::string &shoppingListName, Item &item);
 
 };
 
