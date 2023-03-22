@@ -9,16 +9,20 @@
 #include <string>
 #include <list>
 #include "ShoppingList.h"
+#include "Observer.h"
 
-class User {
+class User : public Observer {
 private:
     std::string name;
     std::list<ShoppingList> shoppingLists;
+    ShoppingList *subject = nullptr;    //Perché vorrei istaziare un oggetto di tipo User prima di aver creato
+    //un oggetto di tipo ShoppingList
+    //Dubbio: un User può avere più ShoppingList condivise?
 
 public:
     explicit User(std::string name);
 
-    ~User() = default;
+    virtual ~User();
 
     void addShoppingList(const ShoppingList &shoppingList);
 
@@ -37,6 +41,12 @@ public:
     void decreaseItemQuantity(const std::string &shoppingListName, Item &item);
 
     void increaseItemQuantity(const std::string &shoppingListName, Item &item);
+
+    void update() override;
+
+    void attach() override;
+
+    void detach() override;
 
 };
 

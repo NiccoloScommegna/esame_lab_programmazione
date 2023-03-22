@@ -9,16 +9,18 @@
 #include <string>
 #include <list>
 #include "Item.h"
+#include "Subject.h"
 
-class ShoppingList {
+class ShoppingList : public Subject {
 private:
     std::string name;
     std::list<Item> itemsList;
+    std::list<Observer *> observers;
 
 public:
     explicit ShoppingList(std::string name);
 
-    ~ShoppingList() = default;
+    virtual ~ShoppingList() = default;
 
     void addItem(const Item &item);
 
@@ -43,6 +45,12 @@ public:
     bool operator==(const ShoppingList &right) const {
         return name == right.name;
     }
+
+    void subscribe(Observer *o) override;
+
+    void unsubscribe(Observer *o) override;
+
+    void notify() override;
 
 };
 

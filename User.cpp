@@ -9,6 +9,11 @@ User::User(std::string name) {
     this->name = name;
 }
 
+User::~User() {
+    if (subject != nullptr)
+        subject->unsubscribe(this);
+}
+
 void User::addShoppingList(const ShoppingList &shoppingList) {
     auto it = std::find(shoppingLists.begin(), shoppingLists.end(), shoppingList);
     if (it == shoppingLists.end())
@@ -96,37 +101,15 @@ void User::increaseItemQuantity(const std::string &shoppingListName, Item &item)
         std::cout << "Shopping list not found" << std::endl;
 }
 
-/*
-void User::addItemToShoppingList(std::string shoppingListName, Item *item) {
-    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if ((*it)->getName() == shoppingListName) {
-            (*it)->addItem(item);
-        }
-    }
+void User::update() {
+
 }
 
-void User::removeItemFromShoppingList(std::string shoppingListName, Item *item) {
-    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if ((*it)->getName() == shoppingListName) {
-            (*it)->removeItem(item);
-        }
-    }
+void User::attach() {
+    subject->subscribe(this);
 }
 
-void User::decreaseItemQuantity(std::string shoppingListName, Item *item) {
-    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if ((*it)->getName() == shoppingListName) {
-            (*it)->decreaseItemQuantity(item);
-        }
-    }
+void User::detach() {
+    subject->unsubscribe(this);
 }
 
-void User::increaseItemQuantity(std::string shoppingListName, Item *item) {
-    for (std::list<ShoppingList *>::iterator it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if ((*it)->getName() == shoppingListName) {
-            (*it)->increaseItemQuantity(item);
-        }
-    }
-}
-
- */

@@ -55,3 +55,17 @@ void ShoppingList::increaseItemQuantity(Item &item) {
     else
         std::cout << "Item not found" << std::endl;
 }
+
+void ShoppingList::subscribe(Observer *o) {
+    observers.push_back(o);
+}
+
+void ShoppingList::unsubscribe(Observer *o) {
+    observers.remove(o);
+}
+
+void ShoppingList::notify() {
+    for (auto observer: observers) {
+        observer->update();
+    }
+}
