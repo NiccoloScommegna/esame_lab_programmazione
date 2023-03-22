@@ -13,22 +13,24 @@
 class ShoppingList {
 private:
     std::string name;
-    std::list<Item *> itemsList;
+    std::list<Item> itemsList;
 
 public:
     explicit ShoppingList(std::string name);
 
     ~ShoppingList() = default;
 
-    void addItem(Item *item);
+    void addItem(const Item &item);
 
-    void removeItem(Item *item);
+    void removeItem(const Item &item);
 
-    void showItemsList();
+    void removeItem(const std::string &itemName);
 
-    void decreaseItemQuantity(Item *item);
+    void showItemsList() const;
 
-    void increaseItemQuantity(Item *item);
+    void decreaseItemQuantity(Item &item);
+
+    void increaseItemQuantity(Item &item);
 
     const std::string &getName() const {
         return name;
@@ -37,7 +39,11 @@ public:
     void setName(const std::string &newName) {
         ShoppingList::name = newName;
     }
-
+/*
+    bool operator==(const ShoppingList &sl) const {
+        return name == sl.name;
+    }
+*/
 };
 
 

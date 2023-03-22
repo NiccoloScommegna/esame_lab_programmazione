@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "User.h"
-
+/*
 User::User(std::string name) {
     this->name = name;
 }
@@ -15,6 +15,14 @@ void User::addShoppingList(ShoppingList *shoppingList) {
 
 void User::removeShoppingList(ShoppingList *shoppingList) {
     shoppingLists.remove(shoppingList);
+}
+
+void User::removeShoppingList(std::string shoppingListName) {
+    for (auto it = listaProva.begin(); it != listaProva.end(); it++) {
+        if (it->getName() == shoppingListName) {
+            listaProva.remove(*it);
+        }
+    }
 }
 
 void User::createShoppingList(std::string shoppingListName) {
@@ -65,3 +73,5 @@ bool User::showItemsList(std::string shoppingListName) {
     std::cout << "Error: shopping list not found" << std::endl;
     return false;
 }
+
+ */

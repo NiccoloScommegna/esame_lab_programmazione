@@ -4,6 +4,7 @@
 #include "User.h"
 
 int main() {
+/*
     std::cout << "Creazione del primo utente e della prima lista" << std::endl;
     User niccolo("Niccoló");
     niccolo.createShoppingList("Casa");
@@ -36,6 +37,34 @@ int main() {
     niccolo.showItemsList("Compleanno");
     niccolo.decreaseItemQuantity("Compleanno", prosciutto);
     niccolo.showItemsList("Compleanno");
+    niccolo.removeShoppingList(compleanno);
+    niccolo.showItemsList("Compleanno");
+
+    std::cout << std::endl;
+    std::cout << "Test sui metodi della classe User con possibilità di usate il nome dell'articolo" << std::endl;
+    //niccolo.showItemsList("Casa");
+    //niccolo.removeShoppingList("Casa");
+    //TODO non funziona il metodo removeShoppingList(std::string shoppingListName) e c'è da gestire il caso
+    // in cui eliminata la lista vanno eliminati anche gli artioli
+    //niccolo.showItemsList("Casa");
+    Item latte("Latte", "Latticini", 2);
+    niccolo.createShoppingList("Natale");
+    niccolo.addItemToShoppingList("Natale", &latte);
+    niccolo.showItemsList("Natale");
+*/
+    ShoppingList sl = ShoppingList("Casa");
+    Item item1 = Item("Spaghetti", "Pasta");
+    Item item2 = Item("Latte", "Latticini", 2);
+    Item item3 = Item("Pomodori", "Frutta e Verdura", 10);
+    sl.addItem(item1);
+    sl.addItem(item2);
+    sl.addItem(item3);
+    sl.showItemsList();
+    sl.addItem(item1);
+    sl.decreaseItemQuantity(item2);
+    sl.showItemsList();
+    sl.removeItem(item3);
+    sl.showItemsList();
 
 
     return 0;

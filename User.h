@@ -23,6 +23,7 @@ public:
     void addShoppingList(ShoppingList *shoppingList);
 
     void removeShoppingList(ShoppingList *shoppingList);
+    //void removeShoppingList(std::string shoppingListName);
 
     void createShoppingList(std::string shoppingListName);
 
