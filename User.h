@@ -15,38 +15,23 @@ class User : public Observer {
 private:
     std::string name;
     std::list<ShoppingList> shoppingLists;
-    ShoppingList *subject = nullptr;    //Perché vorrei istaziare un oggetto di tipo User prima di aver creato
-    //un oggetto di tipo ShoppingList
-    //Dubbio: un User può avere più ShoppingList condivise?
 
 public:
     explicit User(std::string name);
 
     virtual ~User();
 
-    void addShoppingList(const ShoppingList &shoppingList);
+    void addShoppingList(ShoppingList &shoppingList);
 
-    void removeShoppingList(const ShoppingList &shoppingList);
+    void removeShoppingList(ShoppingList &shoppingList);
 
     void removeShoppingList(const std::string &shoppingListName);
 
-    ShoppingList createShoppingList(const std::string &shoppingListName);
+    void showLists() const;
 
     void showItemsList(const std::string &shoppingListName) const;
 
-    void addItemToShoppingList(const std::string &shoppingListName, const Item &item);
-
-    void removeItemFromShoppingList(const std::string &shoppingListName, const Item &item);
-
-    void decreaseItemQuantity(const std::string &shoppingListName, Item &item);
-
-    void increaseItemQuantity(const std::string &shoppingListName, Item &item);
-
-    void update() override;
-
-    void attach() override;
-
-    void detach() override;
+    void update(ShoppingList newList) override;
 
 };
 

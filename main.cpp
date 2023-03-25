@@ -4,35 +4,87 @@
 #include "User.h"
 
 int main() {
-    ShoppingList sl = ShoppingList("Casa");
-    Item item1 = Item("Spaghetti", "Pasta");
-    Item item2 = Item("Latte", "Latticini", 2);
-    Item item3 = Item("Pomodori", "Frutta e Verdura", 10);
-    sl.addItem(item1);
-    sl.addItem(item2);
-    sl.addItem(item3);
-    sl.showItemsList();
-    sl.addItem(item1);
-    sl.decreaseItemQuantity(item2);
-    sl.showItemsList();
-    sl.removeItem(item3);
-    sl.showItemsList();
+    Item item1("Pasta", "Pasta", 1);
+    Item item2("Sale", "Spezie");
+    Item item3("Salmone", "Pesce", 2);
 
-    std::cout << "-----------------------" << std::endl;
+    Item item4("Pomodori", "Verdura", 3);
+    Item item5("Prosciutto", "Salumi", 4);
+    Item item6("Pane", "Pane", 5);
 
-    User u = User("Niccoló");
-    u.addShoppingList(sl);
-    u.showItemsList("Casa");
-    ShoppingList sl1 = u.createShoppingList("Natale");
-    Item item4 = Item("Salmone", "Pesce", 2);
-    Item item5 = Item("Panna", "Latticini", 1);
-    u.addItemToShoppingList("Natale", item4);
-    u.addItemToShoppingList("Natale", item5);
-    u.showItemsList("Natale");
-    u.decreaseItemQuantity("Natale", item4);
-    u.showItemsList("Natale");
-    u.removeItemFromShoppingList("Natale", item5);
-    u.showItemsList("Natale");
+    Item item7("Latte", "Latticini", 6);
+    Item item8("Uova", "Uova", 5);
+    Item item9("Zucchine", "Verdura", 4);
+
+    ShoppingList list1("Casa");
+    ShoppingList list2("Compleanno");
+    ShoppingList list3("Natale");
+
+    User user1("Niccolo");
+    User user2("Francesco");
+    User user3("Chiara");
+
+    list1.addItem(item1);
+    list2.addItem(item4);
+    list3.addItem(item7);
+
+    user1.addShoppingList(list1);
+    user2.addShoppingList(list1);
+    user3.addShoppingList(list1);
+    user1.addShoppingList(list2);
+    user2.addShoppingList(list2);
+    user3.addShoppingList(list2);
+    user1.addShoppingList(list3);
+    user2.addShoppingList(list3);
+    user3.addShoppingList(list3);
+
+    user1.showLists();
+    user2.showLists();
+    user3.showLists();
+
+    list1.addItem(item2);
+    list1.addItem(item3);
+
+    user1.showItemsList("Casa");
+    user2.showItemsList("Casa");
+    user3.showItemsList("Casa");
+
+    list2.addItem(item5);
+    list2.addItem(item6);
+    list3.addItem(item8);
+    list3.addItem(item9);
+
+    user1.showItemsList("Compleanno");
+    user2.showItemsList("Compleanno");
+    user3.showItemsList("Compleanno");
+
+    user1.showItemsList("Natale");
+    user2.showItemsList("Natale");
+    user3.showItemsList("Natale");
+
+    list1.removeItem(item1);
+    list1.increaseItemQuantity(item2);
+    list1.decreaseItemQuantity(item3);
+
+    user1.showItemsList("Casa");
+    user2.showItemsList("Casa");
+    user3.showItemsList("Casa");
+
+    list1.decreaseItemQuantity(item3);
+
+    user1.showItemsList("Casa");
+    user2.showItemsList("Casa");
+    user3.showItemsList("Casa");
+
+    user3.removeShoppingList(list1);
+
+    list1.addItem(item1);
+    list1.addItem(item2);
+
+    user1.showItemsList("Casa");
+    user2.showItemsList("Casa");
+    user3.showItemsList("Casa");
+    user3.showLists();
 
     return 0;
 }

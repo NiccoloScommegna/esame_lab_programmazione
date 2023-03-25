@@ -11,19 +11,22 @@ ShoppingList::ShoppingList(std::string name) {
 
 void ShoppingList::addItem(const Item &item) {
     auto it = std::find(itemsList.begin(), itemsList.end(), item);
-    if (it == itemsList.end())
+    if (it == itemsList.end()) {
         itemsList.push_back(item);
-    else {
+        notify(*this);
+    } else {
         it->setQuantity(it->getQuantity() + item.getQuantity());
-        std::cout << "Item is already on the list, now its new quantity is: " << it->getQuantity() << std::endl;
+        //std::cout << "Item is already on the list, now its new quantity is: " << it->getQuantity() << std::endl;
+        notify(*this);
     }
 }
 
 void ShoppingList::removeItem(const Item &item) {
     auto it = std::find(itemsList.begin(), itemsList.end(), item);
-    if (it != itemsList.end())
+    if (it != itemsList.end()) {
         itemsList.erase(it);
-    else
+        notify(*this);
+    } else
         std::cout << "Item not found" << std::endl;
 }
 
@@ -40,9 +43,10 @@ void ShoppingList::showItemsList() const {
 void ShoppingList::decreaseItemQuantity(Item &item) {
     auto it = std::find(itemsList.begin(), itemsList.end(), item);
     if (it != itemsList.end()) {
-        if (it->getQuantity() > 1)
+        if (it->getQuantity() > 1) {
             it->setQuantity(it->getQuantity() - 1);
-        else    //Quantity == 1
+            notify(*this);
+        } else    //Quantity == 1
             removeItem(item);
     } else
         std::cout << "Item not found" << std::endl;
@@ -50,9 +54,10 @@ void ShoppingList::decreaseItemQuantity(Item &item) {
 
 void ShoppingList::increaseItemQuantity(Item &item) {
     auto it = std::find(itemsList.begin(), itemsList.end(), item);
-    if (it != itemsList.end())
+    if (it != itemsList.end()) {
         it->setQuantity(it->getQuantity() + 1);
-    else
+        notify(*this);
+    } else
         std::cout << "Item not found" << std::endl;
 }
 
@@ -64,8 +69,8 @@ void ShoppingList::unsubscribe(Observer *o) {
     observers.remove(o);
 }
 
-void ShoppingList::notify() {
+void ShoppingList::notify(ShoppingList newList) {
     for (auto observer: observers) {
-        observer->update();
+        observer->update(newList);
     }
 }

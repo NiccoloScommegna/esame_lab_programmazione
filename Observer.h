@@ -5,16 +5,13 @@
 #ifndef ESAME_LAB_PROGRAMMAZIONE_OBSERVER_H
 #define ESAME_LAB_PROGRAMMAZIONE_OBSERVER_H
 
+class ShoppingList;
+
 class Observer {
 public:
     virtual ~Observer() = default;
 
-    virtual void update() = 0;
-
-    virtual void attach() = 0;
-
-    virtual void detach() = 0;
-
+    virtual void update(ShoppingList newList) = 0;
 };
 
 #endif //ESAME_LAB_PROGRAMMAZIONE_OBSERVER_H

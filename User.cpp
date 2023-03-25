@@ -4,29 +4,31 @@
 
 #include <iostream>
 #include "User.h"
-
 User::User(std::string name) {
     this->name = name;
 }
 
 User::~User() {
-    if (subject != nullptr)
-        subject->unsubscribe(this);
+    for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
+        it->unsubscribe(this);
+    }
 }
 
-void User::addShoppingList(const ShoppingList &shoppingList) {
+void User::addShoppingList(ShoppingList &shoppingList) {
     auto it = std::find(shoppingLists.begin(), shoppingLists.end(), shoppingList);
-    if (it == shoppingLists.end())
+    if (it == shoppingLists.end()) {
+        shoppingList.subscribe(this);
         shoppingLists.push_back(shoppingList);
-    else
+    } else
         std::cout << "Shopping list already exists" << std::endl;
 }
 
-void User::removeShoppingList(const ShoppingList &shoppingList) {
+void User::removeShoppingList(ShoppingList &shoppingList) {
     auto it = std::find(shoppingLists.begin(), shoppingLists.end(), shoppingList);
-    if (it != shoppingLists.end())
+    if (it != shoppingLists.end()) {
+        shoppingList.unsubscribe(this);
         shoppingLists.erase(it);
-    else
+    } else
         std::cout << "Shopping list not found" << std::endl;
 }
 
@@ -34,82 +36,34 @@ void User::removeShoppingList(const std::string &shoppingListName) {
     //TODO: da implementare
 }
 
-ShoppingList User::createShoppingList(const std::string &shoppingListName) {
-    ShoppingList shoppingList(shoppingListName);
-    addShoppingList(shoppingList);
-    return shoppingList;
+void User::showLists() const {
+    std::cout << "Here are the lists of: " << name << std::endl;
+    for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
+        std::cout << it->getName() << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 void User::showItemsList(const std::string &shoppingListName) const {
     bool found = false;
     for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
         if (it->getName() == shoppingListName) {
-            std::cout << "Items from the list " << it->getName() << std::endl;
+            std::cout << "User: " << name << std::endl << "Items on the list: " << it->getName() << std::endl;
             it->showItemsList();
             found = true;
         }
     }
     if (!found)
         std::cout << "Shopping list not found" << std::endl;
+    std::cout << std::endl;
 }
 
-void User::addItemToShoppingList(const std::string &shoppingListName, const Item &item) {
-    bool found = false;
-    for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if (it->getName() == shoppingListName) {
-            it->addItem(item);
-            found = true;
-        }
+void User::update(ShoppingList newList) {
+    auto it = std::find(shoppingLists.begin(), shoppingLists.end(), newList);
+    if (it != shoppingLists.end()) {
+        it->unsubscribe(this);
+        shoppingLists.erase(it);
+        shoppingLists.push_back(newList);
+        newList.subscribe(this);
     }
-    if (!found)
-        std::cout << "Shopping list not found" << std::endl;
 }
-
-void User::removeItemFromShoppingList(const std::string &shoppingListName, const Item &item) {
-    bool found = false;
-    for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if (it->getName() == shoppingListName) {
-            it->removeItem(item);
-            found = true;
-        }
-    }
-    if (!found)
-        std::cout << "Shopping list not found" << std::endl;
-}
-
-void User::decreaseItemQuantity(const std::string &shoppingListName, Item &item) {
-    bool found = false;
-    for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if (it->getName() == shoppingListName) {
-            it->decreaseItemQuantity(item);
-            found = true;
-        }
-    }
-    if (!found)
-        std::cout << "Shopping list not found" << std::endl;
-}
-
-void User::increaseItemQuantity(const std::string &shoppingListName, Item &item) {
-    bool found = false;
-    for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if (it->getName() == shoppingListName) {
-            it->increaseItemQuantity(item);
-            found = true;
-        }
-    }
-    if (!found)
-        std::cout << "Shopping list not found" << std::endl;
-}
-
-void User::update() {
-
-}
-
-void User::attach() {
-    subject->subscribe(this);
-}
-
-void User::detach() {
-    subject->unsubscribe(this);
-}
-

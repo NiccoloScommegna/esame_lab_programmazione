@@ -6,6 +6,7 @@
 #define ESAME_LAB_PROGRAMMAZIONE_SUBJECT_H
 
 #include "Observer.h"
+class ShoppingList;
 
 class Subject {
 public:
@@ -15,7 +16,7 @@ public:
 
     virtual void unsubscribe(Observer *o) = 0;
 
-    virtual void notify() = 0;
+    virtual void notify(ShoppingList newList) = 0;
 };
 
 #endif //ESAME_LAB_PROGRAMMAZIONE_SUBJECT_H

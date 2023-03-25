@@ -50,7 +50,7 @@ public:
 
     void unsubscribe(Observer *o) override;
 
-    void notify() override;
+    void notify(ShoppingList newList) override;
 
 };
 
