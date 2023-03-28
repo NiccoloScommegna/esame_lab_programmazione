@@ -42,6 +42,14 @@ public:
         ShoppingList::name = newName;
     }
 
+    std::list<Item> getItemsList() const {
+        return itemsList;
+    }
+
+    std::list<Observer *> getObserversList() const {
+        return observers;
+    }
+
     bool operator==(const ShoppingList &right) const {
         return name == right.name;
     }
