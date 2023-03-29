@@ -26,8 +26,6 @@ public:
 
     void removeItem(const Item &item);
 
-    void removeItem(const std::string &itemName);
-
     void showItemsList() const;
 
     void decreaseItemQuantity(Item &item);

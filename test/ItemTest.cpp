@@ -16,6 +16,11 @@ TEST(Item, DefaultQuantity) {
     ASSERT_EQ(item.getQuantity(), 1);
 }
 
+TEST(Item, ConstructorWithNegativeQuantity) {
+    Item item("Salmone", "Pesce", -5);
+    ASSERT_EQ(item.getQuantity(), 1);
+}
+
 TEST(Item, EqualityOperator) {
     Item item1("Salmone", "Pesce", 5);
     Item item2("Salmone", "Pesce", 2);

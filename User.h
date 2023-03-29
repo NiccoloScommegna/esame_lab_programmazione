@@ -25,13 +25,21 @@ public:
 
     void removeShoppingList(ShoppingList &shoppingList);
 
-    void removeShoppingList(const std::string &shoppingListName);
-
     void showLists() const;
 
     void showItemsList(const std::string &shoppingListName) const;
 
     void update(ShoppingList newList) override;
+
+    const std::string &getName() const {
+        return name;
+    }
+
+    std::list<ShoppingList> getShoppingLists() const {
+        return shoppingLists;
+    }
+
+    std::list<Item> getItemsList(const std::string &shoppingListName) const;
 
 };
 

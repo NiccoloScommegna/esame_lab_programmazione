@@ -30,10 +30,6 @@ void ShoppingList::removeItem(const Item &item) {
         std::cout << "Item not found" << std::endl;
 }
 
-void ShoppingList::removeItem(const std::string &itemName) {
-    //TODO: da implementare
-}
-
 void ShoppingList::showItemsList() const {
     for (auto it = itemsList.begin(); it != itemsList.end(); it++) {
         std::cout << it->getName() << " " << it->getQuantity() << std::endl;

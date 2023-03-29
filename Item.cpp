@@ -4,10 +4,9 @@
 
 #include "Item.h"
 
-Item::Item(std::string name, std::string category, int quantity) {
+Item::Item(std::string name, std::string category, int quantity) : quantity(quantity > 1 ? quantity : 1) {
     this->name = name;
     this->category = category;
-    this->quantity = quantity;
 }
 
 Item::Item(std::string name, std::string category) {

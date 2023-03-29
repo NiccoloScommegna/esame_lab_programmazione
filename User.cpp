@@ -32,10 +32,6 @@ void User::removeShoppingList(ShoppingList &shoppingList) {
         std::cout << "Shopping list not found" << std::endl;
 }
 
-void User::removeShoppingList(const std::string &shoppingListName) {
-    //TODO: da implementare
-}
-
 void User::showLists() const {
     std::cout << "Here are the lists of: " << name << std::endl;
     for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
@@ -66,4 +62,14 @@ void User::update(ShoppingList newList) {
         shoppingLists.push_back(newList);
         newList.subscribe(this);
     }
+}
+
+std::list<Item> User::getItemsList(const std::string &shoppingListName) const {
+    for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
+        if (it->getName() == shoppingListName) {
+            return it->getItemsList();
+        }
+    }
+    std::cout << "Shopping list not found" << std::endl;
+    return {};
 }

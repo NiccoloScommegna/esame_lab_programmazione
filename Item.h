@@ -12,7 +12,7 @@ class Item {
 private:
     std::string name;
     std::string category;
-    int quantity = 1;   //TODO: devo controllare che il valore sia sempre maggiore di 0
+    int quantity = 1;
 
 public:
     Item(std::string name, std::string category, int quantity);
@@ -47,6 +47,10 @@ public:
 
     bool operator==(const Item &right) const {
         return name == right.name;
+    }
+
+    bool isEquals(const Item &right) const {
+        return name == right.name && category == right.category && quantity == right.quantity;
     }
 
 };
