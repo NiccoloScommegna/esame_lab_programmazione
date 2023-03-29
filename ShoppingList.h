@@ -36,10 +36,6 @@ public:
         return name;
     }
 
-    void setName(const std::string &newName) {
-        ShoppingList::name = newName;
-    }
-
     std::list<Item> getItemsList() const {
         return itemsList;
     }

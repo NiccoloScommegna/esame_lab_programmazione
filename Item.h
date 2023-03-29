@@ -25,17 +25,11 @@ public:
         return name;
     }
 
-    void setName(const std::string &newName) {
-        Item::name = newName;
-    }
 
     const std::string &getCategory() const {
         return category;
     }
 
-    void setCategory(const std::string &category) {
-        Item::category = category;
-    }
 
     int getQuantity() const {
         return quantity;
