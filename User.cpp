@@ -5,7 +5,11 @@
 #include <iostream>
 #include "User.h"
 User::User(const std::string &name) {
-    this->name = name;
+    if (name.empty() == true){
+        throw std::runtime_error("Invalid name");
+    } else{
+        this->name = name;
+    }
 }
 
 User::~User() {

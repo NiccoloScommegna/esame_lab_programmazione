@@ -6,7 +6,11 @@
 #include "ShoppingList.h"
 
 ShoppingList::ShoppingList(const std::string &name) {
-    this->name = name;
+    if (name.empty() == true){
+        throw std::runtime_error("Invalid name");
+    } else{
+        this->name = name;
+    }
 }
 
 void ShoppingList::addItem(const Item &item) {
