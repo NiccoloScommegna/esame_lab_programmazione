@@ -13,11 +13,12 @@ private:
     std::string name;
     std::string category;
     int quantity = 1;
+    bool bought = false;
 
 public:
-    Item(std::string name, std::string category, int quantity);
+    Item(const std::string &name, const std::string &category, int quantity);
 
-    Item(std::string name, std::string category);
+    Item(const std::string &name, const std::string &category);
 
     ~Item() = default;
 
@@ -36,7 +37,18 @@ public:
     }
 
     void setQuantity(int newQuantity) {
-        Item::quantity = newQuantity;
+        if (newQuantity > 0)
+            Item::quantity = newQuantity;
+        else
+            Item::quantity = 1;
+    }
+
+    bool isBought() const {
+        return bought;
+    }
+
+    void setBought(bool boughtStatus) {
+        Item::bought = boughtStatus;
     }
 
     bool operator==(const Item &right) const {

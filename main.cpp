@@ -80,8 +80,7 @@ int main() {
     //Modifico la lista 1 che ha nome Casa
     list1.removeItem(item1);    //Rimuovo l'articolo 1 che è la pasta
     list1.increaseItemQuantity(item2);  //Aumento la quantità dell'articolo 2 che è il sale, aveva quantità 1 e ora ha 2
-    list1.decreaseItemQuantity(
-            item3);  //Decremento la quantità dell'articolo 3 che è il salmone, aveva quantità 2 e ora ha 1
+    list1.decreaseItemQuantity(item3);  //Decremento la quantità dell'articolo 3 che è il salmone, aveva quantità 2 e ora ha 1
 
     //Ogni utente stampa la sua lista Casa e verifica che siano uguali
     std::cout << "5) Ogni utente stampa la sua lista Casa e verifica che siano uguali" << std::endl;
@@ -107,10 +106,8 @@ int main() {
 
     //Ogni utente stampa la sua lista Casa e verifica che per l'utente 1 e l'utente 2 siano uguali
     //mentre per l'utente 3 non deve più ricevere gli aggiornamnti perché ha rimosso la lista 1
-    std::cout << "7) Ogni utente stampa la sua lista Casa e verifica che per l'utente 1 e l'utente 2 siano uguali"
-              << std::endl;
-    std::cout << "mentre per l'utente 3 non deve più ricevere gli aggiornamnti perché ha rimosso la lista 1"
-              << std::endl;
+    std::cout << "7) Ogni utente stampa la sua lista Casa e verifica che per l'utente 1 e l'utente 2 siano uguali" << std::endl;
+    std::cout << "mentre per l'utente 3 non deve più ricevere gli aggiornamnti perché ha rimosso la lista 1" << std::endl;
     user1.showItemsList("Casa");
     user2.showItemsList("Casa");
     user3.showItemsList("Casa");
@@ -119,6 +116,19 @@ int main() {
     std::cout << "8) Per ulterirore verifica l'utente 3 stampa le sue liste e verifica che non ci sia più la lista 1"
               << std::endl;
     user3.showLists();
+
+
+
+
+    int numTotItems = list1.getNumberAllItems();
+    int numTotItemsBought = list1.getNumberItemsBought();
+    std::cout << numTotItems << "   " << numTotItemsBought << std::endl;
+
+    list1.buyItem(item2);
+
+    numTotItems = list1.getNumberAllItems();
+    numTotItemsBought = list1.getNumberItemsBought();
+    std::cout << numTotItems << "   " << numTotItemsBought << std::endl;
 
     return 0;
 }

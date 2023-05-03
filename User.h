@@ -17,7 +17,7 @@ private:
     std::list<ShoppingList> shoppingLists;
 
 public:
-    explicit User(std::string name);
+    explicit User(const std::string &name);
 
     virtual ~User();
 

@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "User.h"
-User::User(std::string name) {
+User::User(const std::string &name) {
     this->name = name;
 }
 

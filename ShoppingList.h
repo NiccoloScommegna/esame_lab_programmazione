@@ -18,7 +18,7 @@ private:
     std::list<Observer *> observers;
 
 public:
-    explicit ShoppingList(std::string name);
+    explicit ShoppingList(const std::string &name);
 
     virtual ~ShoppingList() = default;
 
@@ -26,11 +26,19 @@ public:
 
     void removeItem(const Item &item);
 
+    void buyItem(const Item &item);
+
     void showItemsList() const;
 
     void decreaseItemQuantity(Item &item);
 
     void increaseItemQuantity(Item &item);
+
+    int getNumberItemsBought() const;
+
+    int getNumberAllItems() const {
+        return itemsList.size();
+    }
 
     const std::string &getName() const {
         return name;
