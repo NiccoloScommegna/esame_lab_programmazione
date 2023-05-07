@@ -33,15 +33,15 @@ int main() {
     list3.addItem(item7);
 
     //Aggiungo tutte le liste agli utenti
-    user1.addShoppingList(list1);
-    user2.addShoppingList(list1);
-    user3.addShoppingList(list1);
-    user1.addShoppingList(list2);
-    user2.addShoppingList(list2);
-    user3.addShoppingList(list2);
-    user1.addShoppingList(list3);
-    user2.addShoppingList(list3);
-    user3.addShoppingList(list3);
+    user1.addShoppingList(&list1);
+    user2.addShoppingList(&list1);
+    user3.addShoppingList(&list1);
+    user1.addShoppingList(&list2);
+    user2.addShoppingList(&list2);
+    user3.addShoppingList(&list2);
+    user1.addShoppingList(&list3);
+    user2.addShoppingList(&list3);
+    user3.addShoppingList(&list3);
 
     //Ogni utente stampa i nomi di tutte le sue liste
     std::cout << "1) Ogni utente stampa i nomi di tutte le sue liste" << std::endl;
@@ -98,7 +98,7 @@ int main() {
     user3.showItemsList("Casa");
 
     //L'utente 3 rimuove la lista 1 che ha nome Casa dalle proprie liste della spesa
-    user3.removeShoppingList(list1);
+    user3.removeShoppingList(&list1);
 
     //Aggiungo articoli alla lista 1 che ha nome Casa
     list1.addItem(item1);

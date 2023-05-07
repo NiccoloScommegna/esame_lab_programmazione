@@ -9,6 +9,13 @@ TEST(Item, Constructor) {
     ASSERT_EQ(item.getName(), "Salmone");
     ASSERT_EQ(item.getCategory(), "Pesce");
     ASSERT_EQ(item.getQuantity(), 5);
+    ASSERT_EQ(item.isBought(), false);
+}
+
+TEST(Item, InvalidNameConstructor) {
+    ASSERT_ANY_THROW(Item item("", "Pesce", 5));
+    ASSERT_ANY_THROW(Item item("Salmone", "", 5));
+    ASSERT_ANY_THROW(Item item("", "", 5));
 }
 
 TEST(Item, DefaultQuantity) {

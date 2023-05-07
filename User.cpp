@@ -14,23 +14,23 @@ User::User(const std::string &name) {
 
 User::~User() {
     for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        it->unsubscribe(this);
+        (*it)->unsubscribe(this);
     }
 }
 
-void User::addShoppingList(ShoppingList &shoppingList) {
+void User::addShoppingList(ShoppingList *shoppingList) {
     auto it = std::find(shoppingLists.begin(), shoppingLists.end(), shoppingList);
     if (it == shoppingLists.end()) {
-        shoppingList.subscribe(this);
+        shoppingList->subscribe(this);
         shoppingLists.push_back(shoppingList);
     } else
         std::cout << "Shopping list already exists" << std::endl;
 }
 
-void User::removeShoppingList(ShoppingList &shoppingList) {
+void User::removeShoppingList(ShoppingList *shoppingList) {
     auto it = std::find(shoppingLists.begin(), shoppingLists.end(), shoppingList);
     if (it != shoppingLists.end()) {
-        shoppingList.unsubscribe(this);
+        shoppingList->unsubscribe(this);
         shoppingLists.erase(it);
     } else
         std::cout << "Shopping list not found" << std::endl;
@@ -39,7 +39,8 @@ void User::removeShoppingList(ShoppingList &shoppingList) {
 void User::showLists() const {
     std::cout << "Here are the lists of: " << name << std::endl;
     for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        std::cout << it->getName() << std::endl;
+        std::cout << (*it)->getName() << "  Total items: " << (*it)->getNumberAllItems() << "  Items already bought: "
+                  << (*it)->getNumberItemsBought() << std::endl;
     }
     std::cout << std::endl;
 }
@@ -47,9 +48,9 @@ void User::showLists() const {
 void User::showItemsList(const std::string &shoppingListName) const {
     bool found = false;
     for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if (it->getName() == shoppingListName) {
-            std::cout << "User: " << name << std::endl << "Items on the list: " << it->getName() << std::endl;
-            it->showItemsList();
+        if ((*it)->getName() == shoppingListName) {
+            std::cout << "User: " << name << std::endl << "Items on the list: " << (*it)->getName() << std::endl;
+            (*it)->showItemsList();
             found = true;
         }
     }
@@ -58,20 +59,21 @@ void User::showItemsList(const std::string &shoppingListName) const {
     std::cout << std::endl;
 }
 
-void User::update(ShoppingList newList) {
+void User::update(ShoppingList *newList, const std::string &msg) {
     auto it = std::find(shoppingLists.begin(), shoppingLists.end(), newList);
     if (it != shoppingLists.end()) {
-        it->unsubscribe(this);
-        shoppingLists.erase(it);
-        shoppingLists.push_back(newList);
-        newList.subscribe(this);
-    }
+        std::cout << "Hi " + User::name + ", " << msg << (*it)->getName() << std::endl;
+        std::cout << (*it)->getName() << "  Total items: " << (*it)->getNumberAllItems() << "  Items already bought: "
+                  << (*it)->getNumberItemsBought() << std::endl;
+    } else
+        std::cout << "Shopping list not found" << std::endl;
+    std::cout << std::endl;
 }
 
 std::list<Item> User::getItemsList(const std::string &shoppingListName) const {
     for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if (it->getName() == shoppingListName) {
-            return it->getItemsList();
+        if ((*it)->getName() == shoppingListName) {
+            return (*it)->getItemsList();
         }
     }
     std::cout << "Shopping list not found" << std::endl;

@@ -48,8 +48,22 @@ public:
         return itemsList;
     }
 
+    Item getItem(const Item &item) {
+        auto it = std::find(itemsList.begin(), itemsList.end(), item);
+        return (*it);
+    }
+
     std::list<Observer *> getObserversList() const {
         return observers;
+    }
+
+    int getObserversListSize() const {
+        return observers.size();
+    }
+
+    Observer *getObserver(const Observer *observer) {
+        auto it = std::find(observers.begin(), observers.end(), observer);
+        return (*it);
     }
 
     bool operator==(const ShoppingList &right) const {
@@ -60,7 +74,7 @@ public:
 
     void unsubscribe(Observer *o) override;
 
-    void notify(ShoppingList newList) override;
+    void notify(ShoppingList *newList, const std::string &msg) override;
 
 };
 

@@ -8,15 +8,19 @@
 TEST(ShoppingList, Constructor) {
     ShoppingList shoppingList("Lista della spesa");
     ASSERT_EQ(shoppingList.getName(), "Lista della spesa");
-    ASSERT_EQ(shoppingList.getItemsList().size(), 0);
+    ASSERT_EQ(shoppingList.getNumberAllItems(), 0);
+}
+
+TEST(ShoppingList, InvalidNameConstructor) {
+    ASSERT_ANY_THROW(ShoppingList shoppingList(""));
 }
 
 TEST(ShoppingList, AddItem) {
     ShoppingList shoppingList("Lista della spesa");
     Item item("Salmone", "Pesce", 5);
     shoppingList.addItem(item);
-    ASSERT_EQ(shoppingList.getItemsList().size(), 1);
-    ASSERT_EQ(shoppingList.getItemsList().back(), item);
+    ASSERT_EQ(shoppingList.getNumberAllItems(), 1);
+    ASSERT_EQ(shoppingList.getItem(item), item);
 }
 
 TEST(ShoppingList, AddItemAlreadyPresent) {
@@ -24,8 +28,8 @@ TEST(ShoppingList, AddItemAlreadyPresent) {
     Item item("Salmone", "Pesce", 5);
     shoppingList.addItem(item);
     shoppingList.addItem(item);
-    ASSERT_EQ(shoppingList.getItemsList().size(), 1);
-    ASSERT_EQ(shoppingList.getItemsList().back().getQuantity(), 10);
+    ASSERT_EQ(shoppingList.getNumberAllItems(), 1);
+    ASSERT_EQ(shoppingList.getItem(item).getQuantity(), 10);
 }
 
 TEST(ShoppingList, RemoveItem) {
@@ -33,7 +37,30 @@ TEST(ShoppingList, RemoveItem) {
     Item item("Salmone", "Pesce", 5);
     shoppingList.addItem(item);
     shoppingList.removeItem(item);
-    ASSERT_EQ(shoppingList.getItemsList().size(), 0);
+    ASSERT_EQ(shoppingList.getNumberAllItems(), 0);
+}
+
+TEST(ShoppingList, RemoveItemNotPresent) {
+    ShoppingList shoppingList("Lista della spesa");
+    Item item("Salmone", "Pesce", 5);
+    ASSERT_ANY_THROW(shoppingList.removeItem(item));
+}
+
+TEST(ShoppingList, BuyItem) {
+    ShoppingList shoppingList("Lista della spesa");
+    Item item("Salmone", "Pesce", 5);
+    shoppingList.addItem(item);
+    shoppingList.buyItem(item);
+    ASSERT_EQ(shoppingList.getItem(item).isBought(), true);
+}
+
+TEST(ShoppingList, BuyItemException) {
+    ShoppingList shoppingList("Lista della spesa");
+    Item item("Salmone", "Pesce", 5);
+    ASSERT_ANY_THROW(shoppingList.buyItem(item));   //Provo a comprare l'articolo quando non è presente nella lista
+    shoppingList.addItem(item);
+    shoppingList.buyItem(item);
+    ASSERT_ANY_THROW(shoppingList.buyItem(item));   //Provo a comprare l'articolo quando è già stato comprato
 }
 
 TEST(ShoppingList, DecreaseItemQuantity) {
@@ -41,8 +68,8 @@ TEST(ShoppingList, DecreaseItemQuantity) {
     Item item("Salmone", "Pesce", 5);
     shoppingList.addItem(item);
     shoppingList.decreaseItemQuantity(item);
-    ASSERT_EQ(shoppingList.getItemsList().size(), 1);
-    ASSERT_EQ(shoppingList.getItemsList().back().getQuantity(), 4);
+    ASSERT_EQ(shoppingList.getNumberAllItems(), 1);
+    ASSERT_EQ(shoppingList.getItem(item).getQuantity(), 4);
 }
 
 TEST(ShoppingList, DecreaseItemQuantityToZero) {
@@ -50,7 +77,7 @@ TEST(ShoppingList, DecreaseItemQuantityToZero) {
     Item item("Salmone", "Pesce", 1);
     shoppingList.addItem(item);
     shoppingList.decreaseItemQuantity(item);
-    ASSERT_EQ(shoppingList.getItemsList().size(), 0);
+    ASSERT_EQ(shoppingList.getNumberAllItems(), 0);
 }
 
 TEST(ShoppingList, IncreaseItemQuantity) {
@@ -58,8 +85,15 @@ TEST(ShoppingList, IncreaseItemQuantity) {
     Item item("Salmone", "Pesce", 5);
     shoppingList.addItem(item);
     shoppingList.increaseItemQuantity(item);
-    ASSERT_EQ(shoppingList.getItemsList().size(), 1);
-    ASSERT_EQ(shoppingList.getItemsList().back().getQuantity(), 6);
+    ASSERT_EQ(shoppingList.getNumberAllItems(), 1);
+    ASSERT_EQ(shoppingList.getItem(item).getQuantity(), 6);
+}
+
+TEST(ShoppingList, ModifyQuantityOfItemNotPresent) {
+    ShoppingList shoppingList("Lista della spesa");
+    Item item("Salmone", "Pesce", 5);
+    ASSERT_ANY_THROW(shoppingList.decreaseItemQuantity(item));
+    ASSERT_ANY_THROW(shoppingList.increaseItemQuantity(item));
 }
 
 TEST(ShoppingList, EqualityOperator) {
@@ -74,8 +108,8 @@ TEST(ShoppingList, SubscribeObserver) {
     ShoppingList shoppingList("Lista della spesa");
     Observer *observer = new User("Niccolo");
     shoppingList.subscribe(observer);
-    ASSERT_EQ(shoppingList.getObserversList().size(), 1);
-    ASSERT_EQ(shoppingList.getObserversList().back(), observer);
+    ASSERT_EQ(shoppingList.getObserversListSize(), 1);
+    ASSERT_EQ(shoppingList.getObserver(observer), observer);
 }
 
 TEST(ShoppingList, UnsubscribeObserver) {
@@ -83,5 +117,5 @@ TEST(ShoppingList, UnsubscribeObserver) {
     Observer *observer = new User("Niccolo");
     shoppingList.subscribe(observer);
     shoppingList.unsubscribe(observer);
-    ASSERT_EQ(shoppingList.getObserversList().size(), 0);
+    ASSERT_EQ(shoppingList.getObserversListSize(), 0);
 }

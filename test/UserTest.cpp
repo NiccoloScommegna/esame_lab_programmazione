@@ -13,24 +13,24 @@ TEST(User, Constructor) {
 TEST(User, AddList) {
     User user("Niccolo");
     ShoppingList shoppingList("Lista della spesa");
-    user.addShoppingList(shoppingList);
+    user.addShoppingList(&shoppingList);
     ASSERT_EQ(user.getShoppingLists().size(), 1);
-    ASSERT_EQ(user.getShoppingLists().back(), shoppingList);
+    ASSERT_EQ(user.getShoppingLists().back(), &shoppingList);
 }
 
 TEST(User, AddListAlreadyPresent) {
     User user("Niccolo");
     ShoppingList shoppingList("Lista della spesa");
-    user.addShoppingList(shoppingList);
-    user.addShoppingList(shoppingList);
+    user.addShoppingList(&shoppingList);
+    user.addShoppingList(&shoppingList);
     ASSERT_EQ(user.getShoppingLists().size(), 1);
 }
 
 TEST(User, RemoveList) {
     User user("Niccolo");
     ShoppingList shoppingList("Lista della spesa");
-    user.addShoppingList(shoppingList);
-    user.removeShoppingList(shoppingList);
+    user.addShoppingList(&shoppingList);
+    user.removeShoppingList(&shoppingList);
     ASSERT_EQ(user.getShoppingLists().size(), 0);
 }
 
@@ -38,8 +38,8 @@ TEST(User, Update) {
     User user1("Niccolo");
     User user2("Giovanni");
     ShoppingList shoppingList("Lista della spesa");
-    user1.addShoppingList(shoppingList);
-    user2.addShoppingList(shoppingList);
+    user1.addShoppingList(&shoppingList);
+    user2.addShoppingList(&shoppingList);
     Item item1("Salmone", "Pesce", 5);
     Item item2("Pepe", "Spezie");
     Item item3("Pomodori", "Verdura", 10);

@@ -17,11 +17,12 @@ void ShoppingList::addItem(const Item &item) {
     auto it = std::find(itemsList.begin(), itemsList.end(), item);
     if (it == itemsList.end()) {
         itemsList.push_back(item);
-        notify(*this);
+        std::string msg = "an item has been added to the list ";
+        notify(this, msg);
     } else {
         it->setQuantity(it->getQuantity() + item.getQuantity());
-        //std::cout << "Item is already on the list, now its new quantity is: " << it->getQuantity() << std::endl;
-        notify(*this);
+        std::string msg = "an item quantity has been changed from the list ";
+        notify(this, msg);
     }
 }
 
@@ -29,21 +30,23 @@ void ShoppingList::removeItem(const Item &item) {
     auto it = std::find(itemsList.begin(), itemsList.end(), item);
     if (it != itemsList.end()) {
         itemsList.erase(it);
-        notify(*this);
+        std::string msg = "an item was removed from the list ";
+        notify(this, msg);
     } else
-        std::cout << "Item not found" << std::endl;
+        throw std::runtime_error("Item is not listed");
 }
 
 void ShoppingList::buyItem(const Item &item) {
     auto it = std::find(itemsList.begin(), itemsList.end(), item);
     if (it != itemsList.end()){
-        if (it->isBought() == false){
+        if (it->isBought() == false) {
             it->setBought(true);
-            notify(*this);
+            std::string msg = "an item was bought from the list ";
+            notify(this, msg);
         } else
-            std::cout << "Item has already been bought" << std::endl;
+            throw std::runtime_error("Item has already been bought");
     } else
-        std::cout << "Item not found" << std::endl;
+        throw std::runtime_error("Item is not listed");
 }
 
 void ShoppingList::showItemsList() const {
@@ -61,30 +64,31 @@ void ShoppingList::decreaseItemQuantity(Item &item) {
     if (it != itemsList.end()) {
         if (it->getQuantity() > 1) {
             it->setQuantity(it->getQuantity() - 1);
-            notify(*this);
+            std::string msg = "an item quantity has been changed from the list ";
+            notify(this, msg);
         } else    //Quantity == 1
             removeItem(item);
     } else
-        std::cout << "Item not found" << std::endl;
+        throw std::runtime_error("Item is not listed");
 }
-
-int ShoppingList::getNumberItemsBought() const {
-    int result = 0;
-    for (auto it = itemsList.begin(); it != itemsList.end(); it++){
-        if (it->isBought() == true)
-            result++;
-    }
-    return result;
-}
-
 
 void ShoppingList::increaseItemQuantity(Item &item) {
     auto it = std::find(itemsList.begin(), itemsList.end(), item);
     if (it != itemsList.end()) {
         it->setQuantity(it->getQuantity() + 1);
-        notify(*this);
+        std::string msg = "an item quantity has been changed from the list ";
+        notify(this, msg);
     } else
-        std::cout << "Item not found" << std::endl;
+        throw std::runtime_error("Item is not listed");
+}
+
+int ShoppingList::getNumberItemsBought() const {
+    int result = 0;
+    for (auto it = itemsList.begin(); it != itemsList.end(); it++) {
+        if (it->isBought() == true)
+            result++;
+    }
+    return result;
 }
 
 void ShoppingList::subscribe(Observer *o) {
@@ -95,8 +99,8 @@ void ShoppingList::unsubscribe(Observer *o) {
     observers.remove(o);
 }
 
-void ShoppingList::notify(ShoppingList newList) {
+void ShoppingList::notify(ShoppingList *newList, const std::string &msg) {
     for (auto observer: observers) {
-        observer->update(newList);
+        observer->update(newList, msg);
     }
 }

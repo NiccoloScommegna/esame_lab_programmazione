@@ -11,7 +11,7 @@ class Observer {
 public:
     virtual ~Observer() = default;
 
-    virtual void update(ShoppingList newList) = 0;
+    virtual void update(ShoppingList *newList, const std::string &msg) = 0;
 };
 
 #endif //ESAME_LAB_PROGRAMMAZIONE_OBSERVER_H
