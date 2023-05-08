@@ -24,7 +24,7 @@ void User::addShoppingList(ShoppingList *shoppingList) {
         shoppingList->subscribe(this);
         shoppingLists.push_back(shoppingList);
     } else
-        std::cout << "Shopping list already exists" << std::endl;
+        throw std::runtime_error("Shopping list already exists");
 }
 
 void User::removeShoppingList(ShoppingList *shoppingList) {
@@ -33,7 +33,7 @@ void User::removeShoppingList(ShoppingList *shoppingList) {
         shoppingList->unsubscribe(this);
         shoppingLists.erase(it);
     } else
-        std::cout << "Shopping list not found" << std::endl;
+        throw std::runtime_error("Shopping list not found");
 }
 
 void User::showLists() const {
@@ -66,16 +66,6 @@ void User::update(ShoppingList *newList, const std::string &msg) {
         std::cout << (*it)->getName() << "  Total items: " << (*it)->getNumberAllItems() << "  Items already bought: "
                   << (*it)->getNumberItemsBought() << std::endl;
     } else
-        std::cout << "Shopping list not found" << std::endl;
+        throw std::runtime_error("Shopping list not found");
     std::cout << std::endl;
-}
-
-std::list<Item> User::getItemsList(const std::string &shoppingListName) const {
-    for (auto it = shoppingLists.begin(); it != shoppingLists.end(); it++) {
-        if ((*it)->getName() == shoppingListName) {
-            return (*it)->getItemsList();
-        }
-    }
-    std::cout << "Shopping list not found" << std::endl;
-    return {};
 }

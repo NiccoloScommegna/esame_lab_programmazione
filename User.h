@@ -35,11 +35,14 @@ public:
         return name;
     }
 
-    std::list<ShoppingList *> getShoppingLists() const {
-        return shoppingLists;
+    int getShoppingListsSize() const {
+        return shoppingLists.size();
     }
 
-    std::list<Item> getItemsList(const std::string &shoppingListName) const;
+    ShoppingList *getShoppingList(ShoppingList *shoppingList) {
+        auto it = std::find(shoppingLists.begin(), shoppingLists.end(), shoppingList);
+        return (*it);
+    }
 
 };
 

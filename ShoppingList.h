@@ -44,17 +44,9 @@ public:
         return name;
     }
 
-    std::list<Item> getItemsList() const {
-        return itemsList;
-    }
-
     Item getItem(const Item &item) {
         auto it = std::find(itemsList.begin(), itemsList.end(), item);
         return (*it);
-    }
-
-    std::list<Observer *> getObserversList() const {
-        return observers;
     }
 
     int getObserversListSize() const {

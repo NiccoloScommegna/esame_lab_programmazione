@@ -107,7 +107,8 @@ int main() {
     //Ogni utente stampa la sua lista Casa e verifica che per l'utente 1 e l'utente 2 siano uguali
     //mentre per l'utente 3 non deve più ricevere gli aggiornamnti perché ha rimosso la lista 1
     std::cout << "7) Ogni utente stampa la sua lista Casa e verifica che per l'utente 1 e l'utente 2 siano uguali" << std::endl;
-    std::cout << "mentre per l'utente 3 non deve più ricevere gli aggiornamnti perché ha rimosso la lista 1" << std::endl;
+    std::cout << "mentre per l'utente 3 non deve più ricevere gli aggiornamnti perché ha rimosso la lista 1"
+              << std::endl;
     user1.showItemsList("Casa");
     user2.showItemsList("Casa");
     user3.showItemsList("Casa");
@@ -117,18 +118,8 @@ int main() {
               << std::endl;
     user3.showLists();
 
-
-
-
-    int numTotItems = list1.getNumberAllItems();
-    int numTotItemsBought = list1.getNumberItemsBought();
-    std::cout << numTotItems << "   " << numTotItemsBought << std::endl;
-
-    list1.buyItem(item2);
-
-    numTotItems = list1.getNumberAllItems();
-    numTotItemsBought = list1.getNumberItemsBought();
-    std::cout << numTotItems << "   " << numTotItemsBought << std::endl;
+    std::cout << "9) Uso il metodo per comprare un articolo e vedere come la lista viene modificata" << std::endl;
+    list2.buyItem(item4);
 
     return 0;
 }

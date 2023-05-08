@@ -55,10 +55,6 @@ public:
         return name == right.name;
     }
 
-    bool isEquals(const Item &right) const {
-        return name == right.name && category == right.category && quantity == right.quantity;
-    }
-
 };
 
 
