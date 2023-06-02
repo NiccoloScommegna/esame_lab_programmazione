@@ -66,7 +66,7 @@ public:
 
     void unsubscribe(Observer *o) override;
 
-    void notify(ShoppingList *newList, const std::string &msg) override;
+    void notify(const std::string &msg) override;
 
 };
 

@@ -12,7 +12,7 @@ TEST(ShoppingList, Constructor) {
 }
 
 TEST(ShoppingList, InvalidNameConstructor) {
-    ASSERT_ANY_THROW(ShoppingList shoppingList(""));
+    ASSERT_THROW(ShoppingList shoppingList(""), std::invalid_argument);
 }
 
 TEST(ShoppingList, AddItem) {
@@ -43,7 +43,7 @@ TEST(ShoppingList, RemoveItem) {
 TEST(ShoppingList, RemoveItemNotPresent) {
     ShoppingList shoppingList("Lista della spesa");
     Item item("Salmone", "Pesce", 5);
-    ASSERT_ANY_THROW(shoppingList.removeItem(item));
+    ASSERT_THROW(shoppingList.removeItem(item), std::out_of_range);
 }
 
 TEST(ShoppingList, BuyItem) {
@@ -57,10 +57,12 @@ TEST(ShoppingList, BuyItem) {
 TEST(ShoppingList, BuyItemException) {
     ShoppingList shoppingList("Lista della spesa");
     Item item("Salmone", "Pesce", 5);
-    ASSERT_ANY_THROW(shoppingList.buyItem(item));   //Provo a comprare l'articolo quando non è presente nella lista
+    ASSERT_THROW(shoppingList.buyItem(item),
+                 std::out_of_range);   //Provo a comprare l'articolo quando non è presente nella lista
     shoppingList.addItem(item);
     shoppingList.buyItem(item);
-    ASSERT_ANY_THROW(shoppingList.buyItem(item));   //Provo a comprare l'articolo quando è già stato comprato
+    ASSERT_THROW(shoppingList.buyItem(item),
+                 std::logic_error);   //Provo a comprare l'articolo quando è già stato comprato
 }
 
 TEST(ShoppingList, DecreaseItemQuantity) {
@@ -92,8 +94,8 @@ TEST(ShoppingList, IncreaseItemQuantity) {
 TEST(ShoppingList, ModifyQuantityOfItemNotPresent) {
     ShoppingList shoppingList("Lista della spesa");
     Item item("Salmone", "Pesce", 5);
-    ASSERT_ANY_THROW(shoppingList.decreaseItemQuantity(item));
-    ASSERT_ANY_THROW(shoppingList.increaseItemQuantity(item));
+    ASSERT_THROW(shoppingList.decreaseItemQuantity(item), std::out_of_range);
+    ASSERT_THROW(shoppingList.increaseItemQuantity(item), std::out_of_range);
 }
 
 TEST(ShoppingList, EqualityOperator) {

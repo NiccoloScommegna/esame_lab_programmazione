@@ -16,7 +16,7 @@ public:
 
     virtual void unsubscribe(Observer *o) = 0;
 
-    virtual void notify(ShoppingList *newList, const std::string &msg) = 0;
+    virtual void notify(const std::string &msg) = 0;
 };
 
 #endif //ESAME_LAB_PROGRAMMAZIONE_SUBJECT_H

@@ -7,7 +7,7 @@
 
 ShoppingList::ShoppingList(const std::string &name) {
     if (name.empty() == true){
-        throw std::runtime_error("Invalid name");
+        throw std::invalid_argument("Invalid name");
     } else{
         this->name = name;
     }
@@ -18,11 +18,11 @@ void ShoppingList::addItem(const Item &item) {
     if (it == itemsList.end()) {
         itemsList.push_back(item);
         std::string msg = "an item has been added to the list ";
-        notify(this, msg);
+        notify(msg);
     } else {
         it->setQuantity(it->getQuantity() + item.getQuantity());
         std::string msg = "an item quantity has been changed from the list ";
-        notify(this, msg);
+        notify(msg);
     }
 }
 
@@ -31,9 +31,9 @@ void ShoppingList::removeItem(const Item &item) {
     if (it != itemsList.end()) {
         itemsList.erase(it);
         std::string msg = "an item was removed from the list ";
-        notify(this, msg);
+        notify(msg);
     } else
-        throw std::runtime_error("Item is not listed");
+        throw std::out_of_range("Item is not listed");
 }
 
 void ShoppingList::buyItem(const Item &item) {
@@ -42,11 +42,11 @@ void ShoppingList::buyItem(const Item &item) {
         if (it->isBought() == false) {
             it->setBought(true);
             std::string msg = "an item was bought from the list ";
-            notify(this, msg);
+            notify(msg);
         } else
-            throw std::runtime_error("Item has already been bought");
+            throw std::logic_error("Item has already been bought");
     } else
-        throw std::runtime_error("Item is not listed");
+        throw std::out_of_range("Item is not listed");
 }
 
 void ShoppingList::showItemsList() const {
@@ -65,11 +65,11 @@ void ShoppingList::decreaseItemQuantity(Item &item) {
         if (it->getQuantity() > 1) {
             it->setQuantity(it->getQuantity() - 1);
             std::string msg = "an item quantity has been changed from the list ";
-            notify(this, msg);
+            notify(msg);
         } else    //Quantity == 1
             removeItem(item);
     } else
-        throw std::runtime_error("Item is not listed");
+        throw std::out_of_range("Item is not listed");
 }
 
 void ShoppingList::increaseItemQuantity(Item &item) {
@@ -77,9 +77,9 @@ void ShoppingList::increaseItemQuantity(Item &item) {
     if (it != itemsList.end()) {
         it->setQuantity(it->getQuantity() + 1);
         std::string msg = "an item quantity has been changed from the list ";
-        notify(this, msg);
+        notify(msg);
     } else
-        throw std::runtime_error("Item is not listed");
+        throw std::out_of_range("Item is not listed");
 }
 
 int ShoppingList::getNumberItemsBought() const {
@@ -99,8 +99,8 @@ void ShoppingList::unsubscribe(Observer *o) {
     observers.remove(o);
 }
 
-void ShoppingList::notify(ShoppingList *newList, const std::string &msg) {
+void ShoppingList::notify(const std::string &msg) {
     for (auto observer: observers) {
-        observer->update(newList, msg);
+        observer->update(this, msg);
     }
 }

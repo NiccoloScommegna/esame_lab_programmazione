@@ -13,9 +13,9 @@ TEST(Item, Constructor) {
 }
 
 TEST(Item, InvalidNameConstructor) {
-    ASSERT_ANY_THROW(Item item("", "Pesce", 5));
-    ASSERT_ANY_THROW(Item item("Salmone", "", 5));
-    ASSERT_ANY_THROW(Item item("", "", 5));
+    ASSERT_THROW(Item item("", "Pesce", 5), std::invalid_argument);
+    ASSERT_THROW(Item item("Salmone", "", 5), std::invalid_argument);
+    ASSERT_THROW(Item item("", "", 5), std::invalid_argument);
 }
 
 TEST(Item, DefaultQuantity) {

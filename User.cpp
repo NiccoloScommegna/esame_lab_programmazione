@@ -6,7 +6,7 @@
 #include "User.h"
 User::User(const std::string &name) {
     if (name.empty() == true){
-        throw std::runtime_error("Invalid name");
+        throw std::invalid_argument("Invalid name");
     } else{
         this->name = name;
     }
@@ -24,7 +24,7 @@ void User::addShoppingList(ShoppingList *shoppingList) {
         shoppingList->subscribe(this);
         shoppingLists.push_back(shoppingList);
     } else
-        throw std::runtime_error("Shopping list already exists");
+        throw std::logic_error("Shopping list already exists");
 }
 
 void User::removeShoppingList(ShoppingList *shoppingList) {
@@ -33,7 +33,7 @@ void User::removeShoppingList(ShoppingList *shoppingList) {
         shoppingList->unsubscribe(this);
         shoppingLists.erase(it);
     } else
-        throw std::runtime_error("Shopping list not found");
+        throw std::out_of_range("Shopping list not found");
 }
 
 void User::showLists() const {
@@ -66,6 +66,6 @@ void User::update(ShoppingList *newList, const std::string &msg) {
         std::cout << (*it)->getName() << "  Total items: " << (*it)->getNumberAllItems() << "  Items already bought: "
                   << (*it)->getNumberItemsBought() << std::endl;
     } else
-        throw std::runtime_error("Shopping list not found");
+        throw std::out_of_range("Shopping list not found");
     std::cout << std::endl;
 }

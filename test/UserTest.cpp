@@ -11,7 +11,7 @@ TEST(User, Constructor) {
 }
 
 TEST(User, InvalidNameConstructor) {
-    ASSERT_ANY_THROW(User user(""));
+    ASSERT_THROW(User user(""), std::invalid_argument);
 }
 
 TEST(User, AddList) {
@@ -26,7 +26,7 @@ TEST(User, AddListAlreadyPresent) {
     User user("Niccolo");
     ShoppingList shoppingList("Lista della spesa");
     user.addShoppingList(&shoppingList);
-    ASSERT_ANY_THROW(user.addShoppingList(&shoppingList));
+    ASSERT_THROW(user.addShoppingList(&shoppingList), std::logic_error);
 }
 
 TEST(User, RemoveList) {
@@ -40,7 +40,7 @@ TEST(User, RemoveList) {
 TEST(User, RemoveListNotPresent) {
     User user("Niccolo");
     ShoppingList shoppingList("Lista della spesa");
-    ASSERT_ANY_THROW(user.removeShoppingList(&shoppingList));
+    ASSERT_THROW(user.removeShoppingList(&shoppingList), std::out_of_range);
 }
 
 TEST(User, Update) {
